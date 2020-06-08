@@ -1,6 +1,9 @@
 # Proyecto GAN Condicional
 Senpai Academy - AI Developer 
 
+### Equipo
+- Ari Rostkier
+
 ### Descripción de la problemática
 La idea del proyecto es crear una red GAN Condicional, 
 donde a partir de una etiqueta, la red genere una imágen correspondiente a la misma.
@@ -36,4 +39,4 @@ El algoritmo para entrenar la red GAN sería compuesto por los siguientes puntos
 
 ### Visualización de la arquitectura de la red GAN Condicional
 
-![alt text](/images/cGAN.png)
+![cGAN](/images/cGAN.png)
