@@ -31,7 +31,7 @@ El algoritmo para entrenar la red GAN sería compuesto por los siguientes puntos
     <li>Creación de modelo Discriminador, el cual recibe una imágen y una etiqueta, y retorna si la imágen y su etiqueta son verdaderas o falsas.</li>
     <li>Creación de modelo GAN, el cual combina al Generador y Discriminador; de esta forma, recibiría ruido y una etiqueta, y retorna si lo generado en el proceso es verdadero o falso.
         Para el mismo, se concatenan los modelos previos, pasando el Generador como entrada del Discriminador.</li>
-    <li>Se pre entrena el Discriminador, para dar cierta ventaja contra el Generador y así en el entrenamiento posterior obligar a este a realizar ¨mejoras¨ en sus resultados para poder engañar al Discriminador.<li>
+    <li>Se pre entrena el Discriminador, para dar cierta ventaja contra el Generador y así en el entrenamiento posterior obligar a este a realizar ¨mejoras¨ en sus resultados para poder engañar al Discriminador.</li>
     <li>Posteriormente, se pasa a entrenar la red GAN, donde se alterna la posibilidad de entrenar los pesos de ambas redes; Se generan imágenes falsas con el Generador a partir de ruido y una etiqueta. Las imágenes generadas, junto con mas del dataset, se utilizan para entrenar al Discriminador.
         Por último, congelando los pesos del Discriminador, se entrena el Generador a traves del modelo GAN.</li>
     <li>Los pasos mencionados en el punto anterior, serían realizados en cada epoch, guardando la pérdida de ambas redes para poder visualizar el avance del entrenamiento.</li>    
