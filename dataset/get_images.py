@@ -55,7 +55,7 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
             time.sleep(30)
             return
 
-        # move the result startpoint further down
+        # move the result start point further down
         results_start = len(thumbnail_results)
 
     return image_urls
@@ -64,10 +64,8 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
 def persist_image(folder_path: str, url: str):
     try:
         image_content = requests.get(url).content
-
     except Exception as e:
         print(f"ERROR - Could not download {url} - {e}")
-
     try:
         image_file = io.BytesIO(image_content)
         image = Image.open(image_file).convert('RGB')
@@ -81,13 +79,10 @@ def persist_image(folder_path: str, url: str):
 
 def search_and_download(search_term: str, driver_path: str, target_path='images/', number_images=5):
     target_folder = os.path.join(target_path, '_'.join(search_term.lower().split(' ')))
-
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
-
     with webdriver.Chrome(executable_path=driver_path) as wd:
         res = fetch_image_urls(search_term, number_images, wd=wd, sleep_between_interactions=0.5)
-
     for elem in res:
         persist_image(target_folder, elem)
 
