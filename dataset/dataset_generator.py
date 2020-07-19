@@ -24,7 +24,6 @@ def generate():
     index = 0
     index2 = 0
     index_array = []
-
     for folder in directories:
         # Ignoring .DS_Store dir
         if folder == '.DS_Store':
@@ -38,21 +37,16 @@ def generate():
                     pass
                 else:
                     index2 += 1
-                    im = Image.open(input_dir + "/" + folder + "/" + image)  # Opening image
-                    # im = (np.array(im))  # Converting to numpy array
+                    # Opening image
+                    im = Image.open(input_dir + "/" + folder + "/" + image)
                     try:
-                        # r = im[:, :, 0]  # Slicing to get R data
-                        # g = im[:, :, 1]  # Slicing to get G data
-                        # b = im[:, :, 2]  # Slicing to get B data
                         if index2 != 1:
-                            # Creating array with shape (3, 100, 100)
-                            # new_array = np.array([[r] + [g] + [b]], np.uint8)
+                            # Creating array with shape (32, 32, 3)
                             new_array = make_square(im)
-                            # Adding new image to array shape of (x, 3, 100, 100) where x is image number
+                            # Adding new image to array shape of (x, 32, 32, 3) where x is image number
                             out = np.append(out, new_array, 0)
                         elif index2 == 1:
-                            # Creating array with shape (3, 100, 100)
-                            # out = np.array([[r] + [g] + [b]], np.uint8)
+                            # Creating array with shape (32, 32, 3)
                             out = make_square(im)
                         if index == 1 and index2 == 1:
                             index_array = np.array([[index]])
@@ -61,8 +55,7 @@ def generate():
                             index_array = np.append(index_array, new_index_array, 0)
                     except Exception as e:
                         print(e)
-                        print("Removing image", image)
-                    # os.remove(input_dir+"/"+folder+"/"+image)
+                        print("Error with image", image)
 
     print(out.shape)
     print(index_array.shape)
