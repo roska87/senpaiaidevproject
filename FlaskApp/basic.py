@@ -21,7 +21,6 @@ gan_space = api.namespace('gan', description='GAN horse image prediction')
 cgan_space = api.namespace('cgan', description='cGAN image prediction')
 
 
-@nocache
 @gan_space.route("/predict")
 class GanClass(Resource):
 
@@ -47,7 +46,6 @@ class GanClass(Resource):
     """
 
 
-@nocache
 @cgan_space.route("/predict/<label>", endpoint='predict')
 class CGanClass(Resource):
 

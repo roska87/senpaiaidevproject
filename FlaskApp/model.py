@@ -1,8 +1,8 @@
 import numpy as np
-from load import *
+import load_models
 
-gan_model = init_gan()
-cgan_model = init_gan()
+gan_model = load_models.init_gan()
+cgan_model = load_models.init_gan()
 
 
 def gan_predict():

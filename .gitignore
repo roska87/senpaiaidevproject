@@ -1,3 +1,5 @@
 /FlaskApp/.idea
 /FlaskApp/venv
+/venv
 *.pyc
+*.xml
