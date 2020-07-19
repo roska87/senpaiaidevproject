@@ -25,7 +25,6 @@ cgan_space = api.namespace('cgan', description='cGAN image prediction')
 class GanClass(Resource):
 
     # return an image from the GAN model prediction
-    # @app.route('/predict')
     @api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'})
     @nocache
     def get(self):

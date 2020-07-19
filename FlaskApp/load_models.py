@@ -3,13 +3,13 @@ from keras.models import load_model
 
 
 def init_gan_old():
-    json_file = open('models/generator_3000.json', 'r')
+    json_file = open('models/gan_generator_3000.json', 'r')
     loaded_model_json = json_file.read()
     json_file.close()
     loaded_model = model_from_json(loaded_model_json)
 
     # load weights into new model
-    loaded_model.load_weights("models/generator_3000.h5")
+    loaded_model.load_weights("models/gan_generator_3000.h5")
     print("Loaded GAN Model from disk")
 
     # compile and evaluate loaded model
@@ -19,6 +19,6 @@ def init_gan_old():
 
 
 def init_gan():
-    model = load_model('models/generator_12000.h5')
+    model = load_model('models/gan_generator_12000.h5')
     print("Loaded GAN Model from disk")
     return model

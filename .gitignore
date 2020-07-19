@@ -1,5 +1,6 @@
 /FlaskApp/.idea
 /FlaskApp/venv
+/dataset/images
 /venv
 *.pyc
 *.xml
