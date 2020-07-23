@@ -25,7 +25,8 @@ cgan_space = api.namespace('cgan', description='cGAN image prediction')
 class GanClass(Resource):
 
     # return an image from the GAN model prediction
-    @api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Mapping Key Error'})
+    @api.doc(responses={200: 'OK',
+                        500: 'Internal Server Error'})
     @nocache
     def get(self):
         gen_img = model.gan_predict()
@@ -41,14 +42,18 @@ class GanClass(Resource):
 @cgan_space.route("/predict/<label>", endpoint='predict')
 class CGanClass(Resource):
 
-    @api.doc(responses={200: 'OK', 400: 'Invalid Argument', 500: 'Internal Server Error'},
+    @api.doc(responses={200: 'OK',
+                        400: 'Invalid Argument',
+                        500: 'Internal Server Error'},
              params={'label': 'Specify the prediction label'})
     @nocache
     def get(self, label):
         print("Label received:", label)
         label = int(label)
+        if label < 0 or label > 9:
+            api.abort(400, message='Invalid Argument')
         gen_img = model.cgan_predict(label)
-        # print("Predicted image:", gen_img.shape, "with label:", label)
+        print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(
             file,

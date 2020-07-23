@@ -1,6 +1,5 @@
 import numpy as np
 import load_models
-from keras.preprocessing import image
 
 gan_model = load_models.init_gan()
 cgan_model = load_models.init_cgan()
@@ -32,8 +31,7 @@ def cgan_predict(label=0):
     cgan_noise = np.random.randn(10, noise_size)
     sample_label = np.arange(0, 10).reshape(-1, 1)
     gen_img = cgan_model.predict([cgan_noise, sample_label])
-    img = image.array_to_img(gen_img[label])
-    return img
+    return gen_img[label]
 
 
 def cgan_label(value):

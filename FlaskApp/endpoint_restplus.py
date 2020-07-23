@@ -72,7 +72,8 @@ def gen_img_to_file(gen_img):
 class GanClass(Resource):
 
     # return an image from the GAN model prediction
-    @api.doc(responses={200: 'OK', 500: 'Internal Server Error'})
+    @api.doc(responses={200: 'OK',
+                        500: 'Internal Server Error'})
     @nocache
     def get(self):
         inidim = 100
