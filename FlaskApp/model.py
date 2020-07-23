@@ -5,16 +5,16 @@ gan_model = load_models.init_gan()
 cgan_model = load_models.init_cgan()
 
 label_values = {
-  0: "Airplane",
-  1: "Automobile",
-  2: "Bird",
-  3: "Cat",
-  4: "Deer",
-  5: "Dog",
-  6: "Frog",
-  7: "Horse",
-  8: "Ship",
-  9: "Truck",
+  0: "airplane",
+  1: "automobile",
+  2: "bird",
+  3: "cat",
+  4: "deer",
+  5: "dog",
+  6: "frog",
+  7: "horse",
+  8: "ship",
+  9: "truck",
 }
 
 
