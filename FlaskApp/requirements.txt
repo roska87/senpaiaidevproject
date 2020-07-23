@@ -2,7 +2,7 @@ flask-restplus==0.12.1
 flask==1.0.3
 numpy
 scipy
-keras==2.3.1
-tensorflow==2.1.0
+keras==2.1.5
+tensorflow==1.7.0
 werkzeug==0.15.4
 Pillow==7.2.0

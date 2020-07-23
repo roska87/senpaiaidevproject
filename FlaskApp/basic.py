@@ -1,6 +1,6 @@
 # import dependencies
 import os
-from flask import Flask, render_template, jsonify, send_file
+from flask import Flask, send_file
 from flask_restplus import Api, Resource
 import model
 from nocache import nocache
@@ -30,19 +30,12 @@ class GanClass(Resource):
     def get(self):
         gen_img = model.gan_predict()
         print("Predicted image:", gen_img.shape)
-        file = utils.gen_img_to_file(gen_img)
+        file = utils.gen_img_to_file(gen_img[0])
         return send_file(
             file,
             as_attachment=True,
             attachment_filename='prediction_horse_image.png',
             mimetype='image/png')
-
-    """
-    def post(self):
-        return {
-            "status": "Posted new data"
-        }
-    """
 
 
 @cgan_space.route("/predict/<label>", endpoint='predict')
@@ -53,16 +46,18 @@ class CGanClass(Resource):
     @nocache
     def get(self, label):
         print("Label received:", label)
+        label = int(label)
         gen_img = model.cgan_predict(label)
-        print("Predicted image:", gen_img.shape, "with label:", label)
+        # print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(
             file,
             as_attachment=True,
-            attachment_filename='prediction_image.png',
+            attachment_filename=model.cgan_label(label)+'.png',
             mimetype='image/png')
 
 
 # start the app
 if __name__ == '__main__':
+    # model.load_models()
     app.run(host='0.0.0.0', port=port)

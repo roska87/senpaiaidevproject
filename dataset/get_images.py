@@ -12,8 +12,7 @@ def fetch_image_urls(query: str, max_links_to_fetch: int, wd: webdriver, sleep_b
         wd.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(sleep_between_interactions)
 
-        # build the google query
-
+    # build the google query
     search_url = "https://www.google.com/search?safe=off&site=&tbm=isch&source=hp&q={q}&oq={q}&gs_l=img"
 
     # load the page
@@ -89,3 +88,4 @@ def search_and_download(search_term: str, driver_path: str, target_path='images/
 
 # search_and_download(search_term='dog', number_images=100, driver_path='./chromedriver')
 # search_and_download(search_term='car', number_images=100, driver_path='./chromedriver')
+search_and_download(search_term='car', number_images=6000, driver_path='./chromedriver')

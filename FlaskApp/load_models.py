@@ -19,6 +19,14 @@ def init_gan_old():
 
 
 def init_gan():
-    model = load_model('models/gan_generator_12000.h5')
+    gan = load_model('models/gan_generator_model_release.h5')
+    gan._make_predict_function()
     print("Loaded GAN Model from disk")
-    return model
+    return gan
+
+
+def init_cgan():
+    cgan = load_model('models/cgan_generator_model_release.h5')
+    cgan._make_predict_function()
+    print("Loaded cGAN Model from disk")
+    return cgan

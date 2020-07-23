@@ -21,8 +21,8 @@ def make_square(im, min_size=32, fill_color=(0, 0, 0, 0)):
 
 # Create numpy array files from image folders
 def generate():
-    index = 0
-    index2 = 0
+    folder_index = 0
+    image_index = 0
     index_array = []
     for folder in directories:
         # Ignoring .DS_Store dir
@@ -30,28 +30,28 @@ def generate():
             pass
         else:
             print(folder)
-            folder2 = os.listdir(input_dir + '/' + folder)
-            index += 1
-            for image in folder2:
+            images = os.listdir(input_dir + '/' + folder)
+            folder_index += 1
+            for image in images:
                 if image == ".DS_Store":
                     pass
                 else:
-                    index2 += 1
+                    image_index += 1
                     # Opening image
                     im = Image.open(input_dir + "/" + folder + "/" + image)
                     try:
-                        if index2 != 1:
+                        if image_index != 1:
                             # Creating array with shape (32, 32, 3)
                             new_array = make_square(im)
                             # Adding new image to array shape of (x, 32, 32, 3) where x is image number
                             out = np.append(out, new_array, 0)
-                        elif index2 == 1:
+                        elif image_index == 1:
                             # Creating array with shape (32, 32, 3)
                             out = make_square(im)
-                        if index == 1 and index2 == 1:
-                            index_array = np.array([[index]])
+                        if folder_index == 1 and image_index == 1:
+                            index_array = np.array([[folder_index]])
                         else:
-                            new_index_array = np.array([[index]], np.int8)
+                            new_index_array = np.array([[folder_index]], np.int8)
                             index_array = np.append(index_array, new_index_array, 0)
                     except Exception as e:
                         print(e)
@@ -59,7 +59,7 @@ def generate():
 
     print(out.shape)
     print(index_array.shape)
-    print(index)
+    print(folder_index)
 
     np.save('../dataset/X_train.npy', out)  # Saving train image arrays
     np.save('../dataset/Y_train.npy', index_array)  # Saving train labels
