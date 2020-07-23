@@ -39,26 +39,31 @@ class GanClass(Resource):
             mimetype='image/png')
 
 
+def abort_if_value_doesnt_exist(value):
+    if value not in model.cgan_values():
+        api.abort(400, "Value '{}' doesn't exist".format(value))
+
+
 @cgan_space.route("/predict/<label>", endpoint='predict')
 class CGanClass(Resource):
 
     @api.doc(responses={200: 'OK',
                         400: 'Invalid Argument',
                         500: 'Internal Server Error'},
-             params={'label': 'Specify the prediction label'})
+             params={'label': 'Specify the prediction label'},
+             description='Label allowed values: {0}'.format(', '.join(model.cgan_values())))
     @nocache
     def get(self, label):
         print("Label received:", label)
-        label = int(label)
-        if label < 0 or label > 9:
-            api.abort(400, message='Invalid Argument')
-        gen_img = model.cgan_predict(label)
+        abort_if_value_doesnt_exist(label)
+        label_index = model.cgan_value_index(label)
+        gen_img = model.cgan_predict(label_index)
         print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(
             file,
             as_attachment=True,
-            attachment_filename=model.cgan_label(label)+'.png',
+            attachment_filename=label+'.png',
             mimetype='image/png')
 
 

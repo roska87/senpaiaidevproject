@@ -36,3 +36,11 @@ def cgan_predict(label=0):
 
 def cgan_label(value):
     return label_values[value]
+
+
+def cgan_values():
+    return list(label_values.values())
+
+
+def cgan_value_index(label):
+    return list(label_values.values()).index(label)

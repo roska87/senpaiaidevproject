@@ -34,6 +34,20 @@ gan_space = api.namespace('gan', description='GAN horse image prediction')
 cgan_space = api.namespace('cgan', description='cGAN image prediction')
 
 
+label_values = {
+  0: "Airplane",
+  1: "Automobile",
+  2: "Bird",
+  3: "Cat",
+  4: "Deer",
+  5: "Dog",
+  6: "Frog",
+  7: "Horse",
+  8: "Ship",
+  9: "Truck",
+}
+
+
 def load_trained_gan_model():
     print("Cargando modelo GAN de Keras...")
     global gan_model
@@ -83,24 +97,31 @@ class GanClass(Resource):
         return send_file(file, attachment_filename='gan_img.png')
 
 
+def abort_if_value_doesnt_exist(value):
+    if value not in list(label_values.values()):
+        api.abort(400, "Value '{}' doesn't exist".format(value))
+
+
 @cgan_space.route("/predict/<label>", endpoint='predict')
 class CGanClass(Resource):
 
     @api.doc(responses={200: 'OK',
                         400: 'Invalid Argument',
                         500: 'Internal Server Error'},
-             params={'label': 'Specify the prediction label'})
+             params={'label': 'Specify the prediction label'},
+             description='Label allowed values: {0}'.format(', '.join(list(label_values.values()))))
     @nocache
     def get(self, label):
-        label = int(label)
-        if label < 0 or label > 9:
-            api.abort(400, message='Invalid Argument')
+        print("Label received:", label)
+        abort_if_value_doesnt_exist(label)
+        label_index = list(label_values.values()).index(label)
         noise_size = 2048
         cgan_noise = np.random.randn(10, noise_size)
         sample_label = np.arange(0, 10).reshape(-1, 1)
         gen_img = cgan_model.predict([cgan_noise, sample_label])
+        print("Predicted image:", gen_img.shape, "with label:", label)
         print(gen_img.shape)
-        img = gen_img[label]
+        img = gen_img[label_index]
         file = gen_img_to_file(img)
         return send_file(file, attachment_filename='cgan_img.png')
 
