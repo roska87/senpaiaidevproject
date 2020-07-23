@@ -64,5 +64,4 @@ class CGanClass(Resource):
 
 # start the app
 if __name__ == '__main__':
-    # model.load_models()
     app.run(host='0.0.0.0', port=port)
