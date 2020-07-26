@@ -35,17 +35,16 @@ class GanClass(Resource):
         file = utils.gen_img_to_file(gen_img[0])
         return send_file(
             file,
-            as_attachment=True,
             attachment_filename='prediction_horse_image.png',
             mimetype='image/png')
 
 
-def abort_if_value_doesnt_exist(value):
-    if value not in model.cgan_values():
+def abort_if_value_doesnt_exist(values, value):
+    if value not in values:
         api.abort(400, "Value '{}' doesn't exist".format(value))
 
 
-@cgan_space.route("/predict/<label>", endpoint='predict')
+@cgan_space.route("/predict/<label>")
 class CGanClass(Resource):
 
     @api.doc(responses={200: 'OK',
@@ -56,19 +55,18 @@ class CGanClass(Resource):
     @nocache
     def get(self, label):
         print("Label received:", label)
-        abort_if_value_doesnt_exist(label)
+        abort_if_value_doesnt_exist(model.cgan_values(), label)
         label_index = model.cgan_value_index(label)
         gen_img = model.cgan_predict(label_index)
         print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(
             file,
-            as_attachment=True,
             attachment_filename=label+'.png',
             mimetype='image/png')
 
 
-@cgan_custom_space.route("/predict/<label>", endpoint='predict')
+@cgan_custom_space.route("/predict/<label>")
 class CGanCustomClass(Resource):
 
     @api.doc(responses={200: 'OK',
@@ -79,14 +77,13 @@ class CGanCustomClass(Resource):
     @nocache
     def get(self, label):
         print("Label received:", label)
-        abort_if_value_doesnt_exist(label)
+        abort_if_value_doesnt_exist(model.cgan_custom_values(), label)
         label_index = model.cgan_custom_value_index(label)
         gen_img = model.cgan_custom_predict(label_index)
         print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(
             file,
-            as_attachment=True,
             attachment_filename=label+'.png',
             mimetype='image/png')
 
