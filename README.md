@@ -79,10 +79,13 @@ Para los entrenamientos de los modelos, se experimentó con diferentes arquitect
 ### Resultados obtenidos
 Como resultado de las diferentes pruebas, se lograron obtener imágenes como las siguientes:
 - GAN
+
 ![gan](/images/result_horses.png)
 - cGAN (CIFAR10)
+
 ![gan](/images/result_cgan.png)
 - cGAN (Dataset propio)
+
 ![gan](/images/result_cgan_own.png)
 
 ### Conclusiones
