@@ -81,9 +81,9 @@ Como resultado de las diferentes pruebas, se lograron obtener imágenes como las
 - GAN
 ![gan](/images/result_horses.png)
 - cGAN (CIFAR10)
-![gan](/images/result_gan.png)
+![gan](/images/result_cgan.png)
 - cGAN (Dataset propio)
-![gan](/images/result_gan.png)
+![gan](/images/result_cgan_own.png)
 
 ### Conclusiones
 - Para la una mejor creación del dataset, sería de buena utilidad el uso de un modelo pre entrenado, para detectar que el tipo de imágenes descargadas contienen lo que se desea.
