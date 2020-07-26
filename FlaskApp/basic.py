@@ -19,6 +19,7 @@ port = int(os.getenv('PORT', '3000'))
 
 gan_space = api.namespace('gan', description='GAN horse image prediction')
 cgan_space = api.namespace('cgan', description='cGAN image prediction')
+cgan_custom_space = api.namespace('cgan_custom', description='cGAN custom image prediction')
 
 
 @gan_space.route("/predict")
@@ -58,6 +59,29 @@ class CGanClass(Resource):
         abort_if_value_doesnt_exist(label)
         label_index = model.cgan_value_index(label)
         gen_img = model.cgan_predict(label_index)
+        print("Predicted image:", gen_img.shape, "with label:", label)
+        file = utils.gen_img_to_file(gen_img)
+        return send_file(
+            file,
+            as_attachment=True,
+            attachment_filename=label+'.png',
+            mimetype='image/png')
+
+
+@cgan_custom_space.route("/predict/<label>", endpoint='predict')
+class CGanCustomClass(Resource):
+
+    @api.doc(responses={200: 'OK',
+                        400: 'Invalid Argument',
+                        500: 'Internal Server Error'},
+             params={'label': 'Specify the prediction label'},
+             description='Label allowed values: {0}'.format(', '.join(model.cgan_custom_values())))
+    @nocache
+    def get(self, label):
+        print("Label received:", label)
+        abort_if_value_doesnt_exist(label)
+        label_index = model.cgan_custom_value_index(label)
+        gen_img = model.cgan_custom_predict(label_index)
         print("Predicted image:", gen_img.shape, "with label:", label)
         file = utils.gen_img_to_file(gen_img)
         return send_file(

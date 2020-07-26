@@ -13,7 +13,7 @@ def make_square(im, min_size=32, fill_color=(0, 0, 0, 0)):
     size = min(x, y)
     new_im = Image.new('RGB', (size, size), fill_color)
     new_im.paste(im, (int((size - x) / 2), int((size - y) / 2)))
-    new_image = new_im.resize((32, 32))
+    new_image = new_im.resize((min_size, min_size))
     new_image_arr = np.array(new_image)
     new_image_arr = np.expand_dims(new_image_arr, axis=0)
     return new_image_arr
@@ -49,9 +49,9 @@ def generate():
                             # Creating array with shape (32, 32, 3)
                             out = make_square(im)
                         if folder_index == 1 and image_index == 1:
-                            index_array = np.array([[folder_index]])
+                            index_array = np.array([[folder_index-1]])
                         else:
-                            new_index_array = np.array([[folder_index]], np.int8)
+                            new_index_array = np.array([[folder_index-1]], np.int8)
                             index_array = np.append(index_array, new_index_array, 0)
                     except Exception as e:
                         print(e)

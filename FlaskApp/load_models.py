@@ -30,3 +30,10 @@ def init_cgan():
     cgan._make_predict_function()
     print("Loaded cGAN Model from disk")
     return cgan
+
+
+def init_cgan_custom():
+    cgan = load_model('models/cgan_generator_model_release.h5')
+    cgan._make_predict_function()
+    print("Loaded cGAN Custom Model from disk")
+    return cgan

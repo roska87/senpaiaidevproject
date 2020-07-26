@@ -86,6 +86,5 @@ def search_and_download(search_term: str, driver_path: str, target_path='images/
         persist_image(target_folder, elem)
 
 
-# search_and_download(search_term='dog', number_images=100, driver_path='./chromedriver')
-# search_and_download(search_term='car', number_images=100, driver_path='./chromedriver')
-search_and_download(search_term='car', number_images=6000, driver_path='./chromedriver')
+search_term = input('Enter search terms: ')
+search_and_download(search_term, number_images=6000, driver_path='./chromedriver')
