@@ -44,7 +44,7 @@ def cgan_predict(label=0):
 
 def cgan_custom_predict(label=0):
     label = int(label)
-    noise_size = 2048
+    noise_size = 100
     cgan_noise = np.random.randn(3, noise_size)
     sample_label = np.arange(0, 3).reshape(-1, 1)
     gen_img = cgan_custom_model.predict([cgan_noise, sample_label])
