@@ -70,7 +70,7 @@ Para los entrenamientos de los modelos, se experimentó con diferentes arquitect
 #### Modelo Generador
 ![generador](/images/generator_plot.png)
 
-#### Modelo Generador
+#### Modelo Discriminador
 ![generador](/images/discriminator_plot.png) 
 
 #### Modelo cGAN
