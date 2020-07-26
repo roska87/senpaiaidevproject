@@ -88,6 +88,3 @@ Como resultado de las diferentes pruebas, se lograron obtener imágenes como las
 ### Conclusiones
 - Para la una mejor creación del dataset, sería de buena utilidad el uso de un modelo pre entrenado, para detectar que el tipo de imágenes descargadas contienen lo que se desea.
 - Al visualizar la gráfica de la pérdida de los modelos Generador y Discriminador durante el entrenamiento, después de notar que a partir de cierta epoch ya no se presenta mejora, se puede identificar cuantas son las epochs mínimas para lograr la mejor convergencia posible del entrenamiento correspondiente.
-
-### Ejemplo de uso
-![gan](/images/result_gan.png)
