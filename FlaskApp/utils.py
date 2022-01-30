@@ -3,7 +3,7 @@ import io
 
 
 def gen_img_to_file(gen_img):
-    img = image.array_to_img(gen_img[0])
+    img = image.array_to_img(gen_img)
     file = io.BytesIO()
     img.save(file, 'png')
     file.seek(0)
